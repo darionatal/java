@@ -1,41 +1,45 @@
 package br.senac.rn.dao;
 
-import br.iskisita.Produto;
+import br.iskisita.Cliente;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-public class produtoDAO {
-        private EntityManager manager;
+public class clienteDAO {
+
+    private EntityManager manager;
     private EntityManagerFactory factory;
 
-    public produtoDAO() {
+    public clienteDAO() {
         factory = Persistence.createEntityManagerFactory("conexao_db");
         manager = factory.createEntityManager();
     }
-    public void inserirProduto(Produto produto){
+
+    public void inserirCliente(Cliente cliente) {
         manager.getTransaction().begin();
-        manager.persist(produto);
+        manager.persist(cliente);
         manager.getTransaction().commit();
     }
-    public void alterarProduto(Produto produto){
+
+    public void alterarCliente(Cliente cliente) {
         manager.getTransaction().begin();
-        manager.merge(produto);
+        manager.merge(cliente);
         manager.getTransaction().commit();
     }
-    public void apagarProduto(Produto produto){
+
+    public void excluirCliente(Cliente cliente) {
         manager.getTransaction().begin();
-        manager.remove(produto);
+        manager.remove(cliente);
         manager.getTransaction().commit();
     }
-        public List<Produto> buscarTodos() {
-        TypedQuery<Produto> consulta = manager.createQuery("select s from tb_produtos s", Produto.class);
+
+    public List<Cliente> buscaTodosCliente() {
+        TypedQuery<Cliente> consulta = manager.createQuery("select s from tb_cliente s", Cliente.class);
         return consulta.getResultList();
     }
-    public Produto buscarPorId(int id){
-        
-        return manager.find(Produto.class, id);
+    public Cliente  buscaPorId(int id){
+        return manager.find(Cliente.class, id);
     }
 }

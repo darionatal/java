@@ -1,41 +1,41 @@
 package br.senac.rn.dao;
 
-import br.iskisita.Produto;
+import br.iskisita.Categoria;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-public class produtoDAO {
-        private EntityManager manager;
+public class categoriaDAO {
+
+    private EntityManager manager;
     private EntityManagerFactory factory;
 
-    public produtoDAO() {
+    public categoriaDAO() {
         factory = Persistence.createEntityManagerFactory("conexao_db");
         manager = factory.createEntityManager();
     }
-    public void inserirProduto(Produto produto){
+    public void inserirCategoria(Categoria categoria){
         manager.getTransaction().begin();
-        manager.persist(produto);
+        manager.persist(categoria);
         manager.getTransaction().commit();
     }
-    public void alterarProduto(Produto produto){
+    public void atualizaCategoria(Categoria categoria){
         manager.getTransaction().begin();
-        manager.merge(produto);
+        manager.merge(categoria);
         manager.getTransaction().commit();
     }
-    public void apagarProduto(Produto produto){
+    public void removeCategoria(Categoria categoria){
         manager.getTransaction().begin();
-        manager.remove(produto);
+        manager.remove(categoria);
         manager.getTransaction().commit();
     }
-        public List<Produto> buscarTodos() {
-        TypedQuery<Produto> consulta = manager.createQuery("select s from tb_produtos s", Produto.class);
+        public List<Categoria> buscarTodos() {
+        TypedQuery<Categoria> consulta = manager.createQuery("select s from Categoria s", Categoria.class);
         return consulta.getResultList();
     }
-    public Produto buscarPorId(int id){
-        
-        return manager.find(Produto.class, id);
-    }
+        public Categoria buscaPorId(int id){
+            return manager.find(Categoria.class, id);
+        }
 }
