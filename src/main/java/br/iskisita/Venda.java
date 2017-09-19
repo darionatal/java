@@ -1,12 +1,16 @@
 package br.iskisita;
 
+import java.util.Calendar;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity(name = "tb_venda")
@@ -17,23 +21,28 @@ public class Venda {
     private int id;
     @ManyToOne
     private Cliente cliente;
-    @OneToMany
-    private Produto produto;
+    @ManyToMany
+    private List<Produto> produtos;
+    @Temporal(TemporalType.DATE)
+    private Calendar data;
     private float valor;
 
     public Venda() {
+        
     }
 
-    public Venda(Cliente cliente, Produto produto, float valor) {
+    public Venda(int id, Cliente cliente, List<Produto> produtos, Calendar data, float valor) {
+        this.id = id;
         this.cliente = cliente;
-        this.produto = produto;
+        this.produtos = produtos;
+        this.data = data;
         this.valor = valor;
     }
 
-    public Venda(int id, Cliente cliente, Produto produto, float valor) {
-        this.id = id;
+    public Venda(Cliente cliente, List<Produto> produtos, Calendar data, float valor) {
         this.cliente = cliente;
-        this.produto = produto;
+        this.produtos = produtos;
+        this.data = data;
         this.valor = valor;
     }
 
@@ -53,12 +62,20 @@ public class Venda {
         this.cliente = cliente;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public List<Produto> getProdutos() {
+        return produtos;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+
+    public Calendar getData() {
+        return data;
+    }
+
+    public void setData(Calendar data) {
+        this.data = data;
     }
 
     public float getValor() {
@@ -72,7 +89,7 @@ public class Venda {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 37 * hash + this.id;
+        hash = 79 * hash + this.id;
         return hash;
     }
 
@@ -96,8 +113,8 @@ public class Venda {
 
     @Override
     public String toString() {
-        return "Venda{" + "id=" + id + ", cliente=" + cliente + ", produto=" + produto + ", valor=" + valor + '}';
+        return "Venda{" + "id=" + id + ", cliente=" + cliente + ", produtos=" + produtos + ", data=" + data + ", valor=" + valor + '}';
     }
     
-
+    
 }

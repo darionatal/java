@@ -1,6 +1,5 @@
 package br.senac.rn.dao;
 
-import br.iskisita.Produto;
 import br.iskisita.Venda;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -22,6 +21,14 @@ public class vendaDAO {
         manager.getTransaction().begin();
         manager.persist(venda);
         manager.getTransaction().commit();
+        manager.close();
+    }
+
+    public void alteraVenda() {
+        manager.getTransaction().begin();
+        //manager.merge(venda);
+        manager.getTransaction().commit();
+
     }
 
     public List<Venda> buscarTodos() {

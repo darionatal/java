@@ -21,18 +21,21 @@ public class clienteDAO {
         manager.getTransaction().begin();
         manager.persist(cliente);
         manager.getTransaction().commit();
+        manager.close();
     }
 
     public void alterarCliente(Cliente cliente) {
         manager.getTransaction().begin();
         manager.merge(cliente);
         manager.getTransaction().commit();
+        manager.close();
     }
 
     public void excluirCliente(Cliente cliente) {
         manager.getTransaction().begin();
         manager.remove(cliente);
         manager.getTransaction().commit();
+        manager.close();
     }
 
     public List<Cliente> buscaTodosCliente() {
@@ -41,5 +44,12 @@ public class clienteDAO {
     }
     public Cliente  buscaPorId(int id){
         return manager.find(Cliente.class, id);
+    }
+    public Cliente buscarPorCPF(String cpf){
+        String jpql = "select c from tb_cliente c where c.cpf = :cpfCliente";
+        TypedQuery<Cliente> consulta = manager.createQuery(jpql, Cliente.class);
+        consulta.setParameter("cpfCliente", cpf);
+        return consulta.getSingleResult();
+           
     }
 }

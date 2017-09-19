@@ -19,16 +19,19 @@ public class produtoDAO {
         manager.getTransaction().begin();
         manager.persist(produto);
         manager.getTransaction().commit();
+        manager.close();
     }
     public void alterarProduto(Produto produto){
         manager.getTransaction().begin();
         manager.merge(produto);
         manager.getTransaction().commit();
+        manager.close();
     }
     public void apagarProduto(Produto produto){
         manager.getTransaction().begin();
         manager.remove(produto);
         manager.getTransaction().commit();
+        manager.close();
     }
         public List<Produto> buscarTodos() {
         TypedQuery<Produto> consulta = manager.createQuery("select s from tb_produtos s", Produto.class);
@@ -37,5 +40,6 @@ public class produtoDAO {
     public Produto buscarPorId(int id){
         
         return manager.find(Produto.class, id);
+        
     }
 }

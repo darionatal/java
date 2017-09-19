@@ -20,16 +20,19 @@ public class categoriaDAO {
         manager.getTransaction().begin();
         manager.persist(categoria);
         manager.getTransaction().commit();
+        manager.close();
     }
     public void atualizaCategoria(Categoria categoria){
         manager.getTransaction().begin();
         manager.merge(categoria);
         manager.getTransaction().commit();
+        manager.close();
     }
     public void removeCategoria(Categoria categoria){
         manager.getTransaction().begin();
         manager.remove(categoria);
         manager.getTransaction().commit();
+        manager.close();
     }
         public List<Categoria> buscarTodos() {
         TypedQuery<Categoria> consulta = manager.createQuery("select s from Categoria s", Categoria.class);
