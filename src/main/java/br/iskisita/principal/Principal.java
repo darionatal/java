@@ -1,5 +1,6 @@
 package br.iskisita.principal;
 
+import br.iskisita.Categoria;
 import br.iskisita.Cliente;
 import br.iskisita.Produto;
 import br.iskisita.Sexo;
@@ -17,8 +18,11 @@ public class Principal {
 
     public static void main(String[] args) {
         
-        sexoDAO sexo = new sexoDAO();
-        sexo.insert(new Sexo(0,"GENERICO",'G'));
+        categoriaDAO dao = new categoriaDAO();
+//        dao.insert(new Categoria(0,"INFORMATICA","TECNOLOGIA"));
+        //dao.update(new Categoria(2,"22222","22222"));
+        System.out.println(dao.selectById(2));
+        //System.out.println(dao.selectById(2));
         System.exit(0);
         
     }
